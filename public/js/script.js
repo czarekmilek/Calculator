@@ -243,3 +243,92 @@ function createCalculatorButtons(){
 }
 
 createCalculatorButtons();
+
+//Rad/Deg
+let RADIAN = true;
+
+const rad_button = document.getElementById("rad");
+const deg_button = document.getElementById("deg"); 
+
+rad_button.classList.add("active-angle");
+
+function angleToggler(){
+    rad_button.classList.toggle("active-angle");
+    deg_button.classList.toggle("active-angle");
+}
+
+//Click Event Listener
+input_element.addEventListener("click", event => {
+    const target_button = event.target;
+
+    calculator_buttons.forEach(button => {
+        if(button.name == target_button.id) calculator(button);
+    })
+})
+
+//Searching
+function search(array, keyword){
+    let search_result = [];
+
+    array.forEach((element, index) => {
+        if(element == keyword) search_result.push(index);
+    })
+    return search_result;
+}
+
+//Update Output
+function updateOutputOperation(operation){
+    output_operation_element.innerHTML = operation
+}
+
+function updateOutputResult(result){
+    output_result_element.innerHTML = result
+}
+
+//Factorial
+function factorial(number){
+    if(number % 1 != 0) return gamma(number + 1);
+    if(number == 0 || number == 1) return 1;
+
+    let result = 1;
+    for(let i = 1; i <= number; i++){
+        result *= i;
+        if(result === Infinity) return Infinity
+    }
+    return result;
+}
+
+//https://stackoverflow.com/questions/15454183/how-to-make-a-function-that-computes-the-factorial-for-numbers-with-decimals
+function gamma(z) {  // accurate to about 15 decimal places
+    var g = 7, // g represents the precision desired, C is the values of C[i] to plug into Lanczos' formula
+        C = [0.99999999999980993, 676.5203681218851, -1259.1392167224028, 771.32342877765313, -176.61502916214059, 12.507343278686905, -0.13857109526572012, 9.9843695780195716e-6, 1.5056327351493116e-7];
+    if(z < 0.5) {
+      return Math.PI / (Math.sin(Math.PI * z) * gamma(1 - z));
+    }
+    else {
+      z--;
+      var x = C[0];
+      for(var i = 1; i < g + 2; i++) {
+        x += C[i] / (z + i);
+      }
+      var t = z + g + 0.5;
+      return Math.sqrt(2 * Math.PI) * Math.pow(t, (z + 0.5)) * Math.exp(-t) * x;
+    }
+}
+
+//Trigonometry
+function trigo(callback, angle){
+    if(!RADIAN){
+        angle = angle * Math.PI/180;
+    }
+    return callback(angle);
+}
+
+function inv_trigo(callback, value){
+    let angle = callback(value);
+
+    if(!RADIAN){
+        angle = angle * 180/Math.PI;
+    }
+    return angle;
+}
