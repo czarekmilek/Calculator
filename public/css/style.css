@@ -9,6 +9,7 @@
 html {
     font-size:          16px;
     background-color:   rgb(0, 0, 0); 
+    background-image:   url(/stars.jpg);
 }
 
 .calculator {
@@ -134,4 +135,10 @@ html {
 .input button span {
     font-size:          0.7em;
     position:           absolute;
+}
+
+.active-angle {
+    background-color:   #1d1d1d !important;
+    color:              #FFF !important;
+    border-radius:      11px !important;
 }
